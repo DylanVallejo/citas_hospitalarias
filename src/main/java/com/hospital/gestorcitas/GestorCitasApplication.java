@@ -21,7 +21,7 @@ public class GestorCitasApplication {
 	}
 
 
-	@Bean
+//	@Bean
 	CommandLineRunner start (PacienteRepository pacienteRepository, MedicoRepository medicoRepository, CitaRepository citaRepository, ConsultaRepository consultaRepository){
 		return  args -> {
 			Stream.of("Dylan" , "Joel", "Puerco")
