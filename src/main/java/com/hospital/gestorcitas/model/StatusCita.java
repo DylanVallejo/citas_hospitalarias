@@ -4,11 +4,8 @@ package com.hospital.gestorcitas.model;
 
 public enum StatusCita {
 
+    PENDIENTE,
+    CANCELADA,
+    REALIZADA
 
-//    enum PENDIENTE;
-//    enum CANCELADA;
-//    enum REALIZADA;
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
 }

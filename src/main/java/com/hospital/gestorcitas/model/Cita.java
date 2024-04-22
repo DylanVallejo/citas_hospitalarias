@@ -31,6 +31,6 @@ public class Cita {
     @ManyToOne
     private Medico medico;
 
-    @OneToOne
+    @OneToOne(mappedBy = "cita")
     private Consulta consulta;
 }
