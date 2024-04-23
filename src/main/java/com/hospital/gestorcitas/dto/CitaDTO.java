@@ -3,6 +3,8 @@ package com.hospital.gestorcitas.dto;
 
 import lombok.Data;
 
+import javax.swing.text.StyledEditorKit;
+
 @Data
 public class CitaDTO {
 
@@ -12,5 +14,6 @@ public class CitaDTO {
     private String statusCita;
     private Long pacienteId;
     private Long medicoId;
+    private Boolean cancelado;
 
 }
