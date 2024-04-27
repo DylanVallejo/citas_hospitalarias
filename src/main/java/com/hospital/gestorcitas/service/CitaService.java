@@ -5,6 +5,7 @@ import com.hospital.gestorcitas.model.Cita;
 import com.hospital.gestorcitas.model.StatusCita;
 import org.aspectj.apache.bcel.classfile.Module;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,9 +15,9 @@ public interface CitaService {
 
     Optional<CitaDTO> getCitaById(Long id);
 
-    Cita createCita(CitaDTO citaDTO, Long idPaciente, Long idMedico);
+    Cita createCita(CitaDTO citaDTO, Long idPaciente, Long idMedico) throws Exception;
 
-    CitaDTO updateCita(Long id, CitaDTO citaDTO);
+    CitaDTO updateCita(Long id, CitaDTO citaDTO) throws ParseException;
 
     void deleteCita(Long id);
 

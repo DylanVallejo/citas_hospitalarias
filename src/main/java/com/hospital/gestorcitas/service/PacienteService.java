@@ -11,7 +11,7 @@ public interface PacienteService {
 
     List<PacienteDTO> getAllPacientes();
 
-    Optional<PacienteDTO> getPacienteById();
+    Optional<PacienteDTO> getPacienteById(Long id );
 
     PacienteDTO createPaciente(PacienteDTO pacienteDTO);
 
