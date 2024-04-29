@@ -3,6 +3,8 @@ package com.hospital.gestorcitas.service;
 import com.hospital.gestorcitas.dto.ConsultaDTO;
 import com.hospital.gestorcitas.model.Cita;
 import com.hospital.gestorcitas.model.Consulta;
+import com.hospital.gestorcitas.repository.ConsultaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.ParseException;
 import java.util.List;
@@ -16,7 +18,7 @@ public interface ConsultaService {
 
     ConsultaDTO createConsulta(Long citaId, ConsultaDTO consultaDTO) throws ParseException;
 
-    ConsultaDTO updateConsulta(Long consultaId);
+    ConsultaDTO updateConsulta(Long consultaId, ConsultaDTO consultaDTO) throws ParseException;
 
     void deleteConsulta(Long id);
 
