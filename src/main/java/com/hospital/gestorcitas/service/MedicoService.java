@@ -21,6 +21,6 @@ public interface MedicoService {
 
     Collection<CitaDTO> getCitasByMedicoId(Long medicoId);
 
-    List<MedicoDTO> getMedicosByEspecialidad();
+    List<MedicoDTO> getMedicosByEspecialidad(String especialidad);
 
 }
