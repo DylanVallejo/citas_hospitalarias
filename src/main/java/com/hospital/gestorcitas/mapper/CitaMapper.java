@@ -46,6 +46,8 @@ public class CitaMapper {
     public Cita toEntity(CitaDTO citaDTO) throws ParseException {
         Cita cita = new Cita();
 
+        cita.setId(citaDTO.getId());
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date fecha = sdf.parse(citaDTO.getFecha());
         cita.setFecha(fecha);

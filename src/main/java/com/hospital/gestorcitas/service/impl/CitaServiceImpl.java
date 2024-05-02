@@ -1,8 +1,10 @@
 package com.hospital.gestorcitas.service.impl;
 
+import ch.qos.logback.core.encoder.EchoEncoder;
 import com.hospital.gestorcitas.dto.CitaDTO;
 import com.hospital.gestorcitas.dto.MedicoDTO;
 import com.hospital.gestorcitas.dto.PacienteDTO;
+import com.hospital.gestorcitas.exceptions.CitaNotFoundException;
 import com.hospital.gestorcitas.mapper.CitaMapper;
 import com.hospital.gestorcitas.mapper.MedicoMapper;
 import com.hospital.gestorcitas.mapper.PacienteMapper;
@@ -16,6 +18,9 @@ import com.hospital.gestorcitas.service.MedicoService;
 import com.hospital.gestorcitas.service.PacienteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.lang.invoke.CallSite;
@@ -95,26 +100,31 @@ public class CitaServiceImpl implements CitaService {
     @Override
     public CitaDTO updateCita(Long id, CitaDTO citaDTO) throws ParseException {
         Optional<Cita> citaOptional = citaRepository.findById(id);
+        try {
+            if (citaOptional.isPresent()){
+                Cita cita = citaOptional.get();
+                cita.setId(cita.getId());
+                if (citaDTO.getFecha() != null ){
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    Date fecha = sdf.parse(citaDTO.getFecha());
+                }
 
-        if (citaOptional.isPresent()){
-            Cita cita = citaOptional.get();
+                cita.setCancelado(citaDTO.getCancelado());
+                cita.setStatusCita(StatusCita.valueOf(citaDTO.getStatusCita()));
 
-            if (citaDTO.getFecha() != null ){
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Date fecha = sdf.parse(citaDTO.getFecha());
+                Optional<Paciente> pacienteOptional = pacienteRepository.findById(citaDTO.getPacienteId());
+                Paciente paciente = pacienteOptional.get();
+                cita.setPaciente(paciente);
+
+                Optional<Medico> medicoOptional = medicoRepository.findById(citaDTO.getMedicoId());
+                cita.setMedico(medicoOptional.get());
+
+                return citaMapper.toDto(citaRepository.save(cita));
+            }else {
+                throw new CitaNotFoundException("La cita con el ID " + id + " no existe.");
             }
-
-            cita.setCancelado(citaDTO.getCancelado());
-            cita.setStatusCita(StatusCita.valueOf(citaDTO.getStatusCita()));
-
-            Optional<Paciente> pacienteOptional = pacienteRepository.findById(citaDTO.getPacienteId());
-            Paciente paciente = pacienteOptional.get();
-            cita.setPaciente(paciente);
-
-            Optional<Medico> medicoOptional = medicoRepository.findById(citaDTO.getMedicoId());
-            cita.setMedico(medicoOptional.get());
-
-            return citaMapper.toDto(citaRepository.save(cita));
+        }catch (Exception exception){
+            exception.printStackTrace();
         }
         return null;
     }
