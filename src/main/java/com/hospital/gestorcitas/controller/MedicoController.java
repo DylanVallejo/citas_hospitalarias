@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,17 +48,36 @@ public class MedicoController {
         return new ResponseEntity<>(medicoToSave, HttpStatus.OK);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/update/{id}")
     public ResponseEntity<MedicoDTO> updateMedico(@PathVariable Long id, @RequestBody MedicoDTO medicoDTO){
         MedicoDTO medicoUpdated = medicoService.updateMedico(id, medicoDTO);
         return new ResponseEntity<>(medicoUpdated, HttpStatus.OK);
     }
 
     @GetMapping("/citas/{medicoId}")
-    public  ResponseEntity<List<CitaDTO>> obtenerCitasPorMedicoId(@PathVariable Long medicoId){
-//        List<CitaDTO> citasPormedico = medicoService.getCitasByMedicoId(medicoId);
+    public  ResponseEntity<Collection<CitaDTO>> obtenerCitasPorMedicoId(@PathVariable Long medicoId){
+        Collection<CitaDTO> citasPormedico = medicoService.getCitasByMedicoId(medicoId);
+        if (citasPormedico != null){
+            return new ResponseEntity<>(citasPormedico, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 
-        return new ResponseEntity<>(citasPormedico, HttpStatus.OK);
+
+    @GetMapping("/especialidad/{especialidad}")
+    public ResponseEntity<List<MedicoDTO>> obtenerMedicoPorEspecialidad(@PathVariable String especialidad){
+        List<MedicoDTO> medico = medicoService.getMedicosByEspecialidad(especialidad);
+        return new ResponseEntity<>(medico, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/eliminar/{medicoId}")
+    public void eliminarMedico(@PathVariable Long medicoId){
+        try {
+            medicoService.deleteMedico(medicoId);
+        }catch (Exception exception){
+            exception.printStackTrace();
+        }
     }
 
 
