@@ -28,7 +28,7 @@ public class CitaMapper {
     public CitaDTO toDto(Cita cita){
         CitaDTO citaDTO = new CitaDTO();
 
-        citaDTO.setId(citaDTO.getId());
+        citaDTO.setId(cita.getId());
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formatedFecha = sdf.format(cita.getFecha());

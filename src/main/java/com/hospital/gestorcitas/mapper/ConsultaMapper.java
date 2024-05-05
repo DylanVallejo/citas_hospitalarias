@@ -27,7 +27,7 @@ public class ConsultaMapper {
             Cita cita = consulta.getCita();
             CitaDTO citaDTO = new CitaDTO();
 
-            citaDTO.setId(citaDTO.getId());
+            citaDTO.setId(cita.getId());
             citaDTO.setFecha(dateFormat.format(cita.getFecha()));
             citaDTO.setCancelado(cita.isCancelado());
             citaDTO.setStatusCita(cita.getStatusCita().toString());

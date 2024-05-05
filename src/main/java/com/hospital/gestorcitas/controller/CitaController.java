@@ -28,19 +28,8 @@ public class CitaController {
     private CitaService citaService;
 
     @Autowired
-    private MedicoService medicoService;
-
-    @Autowired
-    private PacienteService pacienteService;
-
-    @Autowired
-    private MedicoMapper medicoMapper;
-
-    @Autowired
     private CitaMapper citaMapper;
 
-    @Autowired
-    private PacienteMapper pacienteMapper;
 
     @GetMapping
     public ResponseEntity<List<CitaDTO>> listarCitas(){

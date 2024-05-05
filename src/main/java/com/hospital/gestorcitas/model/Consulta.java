@@ -1,14 +1,13 @@
 package com.hospital.gestorcitas.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Consulta {
@@ -22,7 +21,7 @@ public class Consulta {
 
     private String informe;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Cita cita;
 
 }
